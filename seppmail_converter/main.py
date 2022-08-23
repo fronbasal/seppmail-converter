@@ -1,4 +1,3 @@
-import json
 import pathlib
 import re
 
@@ -37,9 +36,12 @@ def get_valid_filename(name):
     prompt_required=False,
 )
 @click.option("--username", "-u", prompt=True)
+@click.option('--force', '-f', help='Skip SEPPMail input file validation', type=click.BOOL)
 @click.password_option(confirmation_prompt=False)
-def cli(input_file: pathlib.Path, output: pathlib.Path, username: str, password: str):
+def cli(input_file: pathlib.Path, output: pathlib.Path, username: str, password: str, force: bool):
     # Extract key-value pairs from form
+    if 'secmail' not in input_file.read_text('utf-8') and not force:
+        raise click.FileError(str(input_file.absolute()), 'The input file provided seems to be invalid')
     soup = BeautifulSoup(input_file.read_text("utf-8"), "lxml")
     value_map = {
         node.attrs.get("name"): node.attrs.get("value")
