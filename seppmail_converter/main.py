@@ -37,8 +37,9 @@ def get_valid_filename(name):
 )
 @click.option("--username", "-u", prompt=True)
 @click.option('--force', '-f', help='Skip SEPPMail input file validation', type=click.BOOL)
+@click.option("--delete", "-d", help="Delete input file after conversion", type=click.BOOL)
 @click.password_option(confirmation_prompt=False)
-def cli(input_file: pathlib.Path, output: pathlib.Path, username: str, password: str, force: bool):
+def cli(input_file: pathlib.Path, output: pathlib.Path, username: str, password: str, force: bool, delete: bool):
     # Extract key-value pairs from form
     if 'secmail' not in input_file.read_text('utf-8') and not force:
         raise click.FileError(str(input_file.absolute()), 'The input file provided seems to be invalid')
@@ -89,6 +90,7 @@ def cli(input_file: pathlib.Path, output: pathlib.Path, username: str, password:
             )
         )
     output.write_bytes(req.content)
+    if delete: input_file.unlink()
     click.echo(
         f"Decoded {click.format_filename(input_file.absolute())} to {click.format_filename(output.absolute())}"
     )
