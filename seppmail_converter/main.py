@@ -68,6 +68,8 @@ def cli(input_file: pathlib.Path, output: pathlib.Path, username: str, password:
     if not req.ok:
         raise AuthenticationError("Failed to log in, check credentials")
     soup = BeautifulSoup(req.text, "lxml")
+    if soup.find(id='inputConfirm'):
+        raise AuthenticationError('Failed to log in, unknown email create account manually')
     value_map = {
         node.attrs.get("name"): node.attrs.get("value")
         for node in soup.find(id="inputSaveAs").parent.find_all("input")
