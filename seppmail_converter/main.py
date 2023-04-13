@@ -23,6 +23,8 @@ def get_valid_filename(name):
         exists=True, readable=True, resolve_path=True, path_type=pathlib.Path
     ),
 )
+@click.option("--username", "-u", prompt=True)
+@click.password_option("--password", "-p", confirmation_prompt=False)
 @click.option(
     "--output",
     "-o",
@@ -35,14 +37,34 @@ def get_valid_filename(name):
     prompt=True,
     prompt_required=False,
 )
-@click.option("--username", "-u", prompt=True)
 @click.option(
-    "--force", "-f", help="Skip SEPPMail input file validation", type=click.BOOL, is_flag=True
+    "--force",
+    "-f",
+    help="Skip SEPPMail input file validation",
+    type=click.BOOL,
+    is_flag=True,
 )
 @click.option(
-    "--delete", "-d", help="Delete input file after conversion", type=click.BOOL, is_flag=True
+    "--delete",
+    "-d",
+    help="Delete input file after conversion",
+    type=click.BOOL,
+    is_flag=True,
 )
-@click.password_option("--password", "-p", confirmation_prompt=False)
+@click.option(
+    "--overwrite",
+    "-o",
+    help="Overwrite output file if it exists",
+    type=click.BOOL,
+    is_flag=True,
+)
+@click.option(
+    "--quiet",
+    "-q",
+    help="Suppress all output except final path",
+    type=click.BOOL,
+    is_flag=True,
+)
 def cli(
     input_file: pathlib.Path,
     output: pathlib.Path,
@@ -50,17 +72,21 @@ def cli(
     password: str,
     force: bool,
     delete: bool,
+    overwrite: bool,
+    quiet: bool,
 ):
     # Extract key-value pairs from form
     if "secmail" not in input_file.read_text("utf-8") and not force:
         raise click.FileError(
             str(input_file.absolute()), "The input file provided seems to be invalid"
         )
+
     soup = BeautifulSoup(input_file.read_text("utf-8"), "lxml")
     value_map = {
         node.attrs.get("name"): node.attrs.get("value")
         for node in soup.find_all("input")
     }
+
     # Submit the created form to receive session
     target_url = soup.find("form").attrs["action"]
     req = requests.post(target_url, data=value_map)
@@ -69,6 +95,7 @@ def cli(
             str(input_file.absolute()),
             "Could not submit or find form details, check input file",
         )
+
     soup = BeautifulSoup(req.text, "lxml")
     value_map = {
         node.attrs.get("name"): node.attrs.get("value")
@@ -76,25 +103,31 @@ def cli(
     }
     value_map["email"] = username
     value_map["password"] = password
+
     # Login with given credentials to export mail as .eml
     req = requests.post(target_url, data=value_map)
     if not req.ok:
         raise AuthenticationError("Failed to log in, check credentials")
+
     soup = BeautifulSoup(req.text, "lxml")
     if soup.find(id="inputConfirm"):
         raise AuthenticationError(
             "Failed to log in, unknown email create account manually"
         )
+
     value_map = {
         node.attrs.get("name"): node.attrs.get("value")
         for node in soup.find(id="inputSaveAs").parent.find_all("input")
     }
     del value_map["access"]
+
     req = requests.post(
         target_url, data={**value_map, "submit": "yes", "access": "raw"}
     )
+
     if not req.ok:
         raise ExportError("Could not retrieve export from SeppMail")
+
     if not output:
         filename = str(
             re.findall("filename=(.+)", req.headers["content-disposition"])[0]
@@ -106,12 +139,20 @@ def cli(
                 )
             )
         )
+        if output.exists() and overwrite:
+            output.unlink()
+
     output.write_bytes(req.content)
+
     if delete:
         input_file.unlink()
-    click.echo(
-        f"Decoded {click.format_filename(input_file.absolute())} to {click.format_filename(output.absolute())}"
-    )
+
+    if quiet:
+        click.echo(output.absolute())
+    else:
+        click.echo(
+            f"Decoded {click.format_filename(input_file.absolute())} to {click.format_filename(output.absolute())}"
+        )
 
 
 def entry():

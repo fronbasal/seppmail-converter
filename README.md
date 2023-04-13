@@ -8,12 +8,14 @@ This python tool allows you to convert [SEPPMail](https://www.seppmail.com/) enc
 Usage: seppmail-converter [OPTIONS] INPUT_FILE
 
 Options:
-  -o, --output PATH
   -u, --username TEXT
+  -p, --password TEXT
+  -o, --output PATH
   -f, --force          Skip SEPPMail input file validation
   -d, --delete         Delete input file after conversion
-  -p, --password TEXT
-  --help               Show this message and exit.
+  -o, --overwrite      Overwrite output file if it exists
+  -q, --quiet          Suppress all output except final path
+  --help               Show this message and exit. 
  ```
 
 Relevant environment variables:
