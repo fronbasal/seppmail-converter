@@ -87,7 +87,6 @@ def cli(
     overwrite: bool,
     extract: bool,
     quiet: bool,
-    version: bool,
 ):
     # Extract key-value pairs from form
     if "secmail" not in input_file.read_text("utf-8") and not force:
@@ -169,7 +168,6 @@ def cli(
 
     if extract:
         msg = email.message_from_bytes(output.read_bytes(), policy=policy.default)
-        msg.get_payload()
         for attachment in msg.iter_attachments():
             try:
                 attachment_filename = attachment.get_filename()
