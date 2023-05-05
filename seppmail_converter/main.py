@@ -169,6 +169,9 @@ def cli(
     if extract:
         msg = email.message_from_bytes(output.read_bytes(), policy=policy.default)
         for attachment in msg.iter_attachments():
+            if not attachment.get_content_disposition() == 'attachment':
+                # Skip over inline attachments
+                continue
             try:
                 attachment_filename = attachment.get_filename()
             except AttributeError:
