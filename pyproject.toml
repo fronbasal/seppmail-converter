@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "seppmail-converter"
-version = "0.1.9"
+version = "0.1.10"
 description = "Decode SEPPMail emails into EML files"
 license = "MIT"
 authors = ["Daniel Malik <daniel.malik@mhsp.solutions>"]
