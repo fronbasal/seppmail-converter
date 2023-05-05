@@ -1,5 +1,7 @@
+import email
 import pathlib
 import re
+from email import policy
 
 import click
 import requests
@@ -59,6 +61,14 @@ def get_valid_filename(name):
     is_flag=True,
 )
 @click.option(
+    "--extract",
+    "-e",
+    help="Extract attachments from .eml file",
+    type=click.BOOL,
+    is_flag=True,
+    default=False,
+)
+@click.option(
     "--quiet",
     "-q",
     help="Suppress all output except final path",
@@ -73,6 +83,7 @@ def cli(
     force: bool,
     delete: bool,
     overwrite: bool,
+    extract: bool,
     quiet: bool,
 ):
     # Extract key-value pairs from form
@@ -146,13 +157,31 @@ def cli(
 
     if delete:
         input_file.unlink()
-
     if quiet:
         click.echo(output.absolute())
     else:
         click.echo(
             f"Decoded {click.format_filename(input_file.absolute())} to {click.format_filename(output.absolute())}"
         )
+
+    if extract:
+        msg = email.message_from_bytes(output.read_bytes(), policy=policy.default)
+        msg.get_payload()
+        for attachment in msg.iter_attachments():
+            try:
+                attachment_filename = attachment.get_filename()
+            except AttributeError:
+                continue
+            if not attachment_filename:
+                continue
+            attachment_output = pathlib.Path(
+                pathlib.Path.joinpath(output.parent, attachment_filename)
+            )
+            attachment_output.write_bytes(attachment.get_payload(decode=True))
+            if not quiet:
+                click.echo(
+                    f"Extracted {click.format_filename(attachment_output.absolute())}"
+                )
 
 
 def entry():

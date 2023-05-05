@@ -14,9 +14,10 @@ Options:
   -f, --force          Skip SEPPMail input file validation
   -d, --delete         Delete input file after conversion
   -o, --overwrite      Overwrite output file if it exists
+  -e, --extract        Extract attachments from .eml file
   -q, --quiet          Suppress all output except final path
-  --help               Show this message and exit. 
- ```
+  --help               Show this message and exit.
+```
 
 Relevant environment variables:
 
