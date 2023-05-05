@@ -8,6 +8,7 @@ import requests
 from bs4 import BeautifulSoup
 
 from seppmail_converter.exceptions import AuthenticationError, ExportError
+from seppmail_converter import __version__
 
 
 def get_valid_filename(name):
@@ -75,6 +76,7 @@ def get_valid_filename(name):
     type=click.BOOL,
     is_flag=True,
 )
+@click.version_option(__version__, "-v", "--version", message="%(version)s")
 def cli(
     input_file: pathlib.Path,
     output: pathlib.Path,
@@ -85,6 +87,7 @@ def cli(
     overwrite: bool,
     extract: bool,
     quiet: bool,
+    version: bool,
 ):
     # Extract key-value pairs from form
     if "secmail" not in input_file.read_text("utf-8") and not force:
