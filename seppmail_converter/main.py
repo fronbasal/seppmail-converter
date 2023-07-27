@@ -88,13 +88,15 @@ def cli(
     extract: bool,
     quiet: bool,
 ):
+    input_file_data = input_file.read_text("utf-8")
+
     # Extract key-value pairs from form
-    if "secmail" not in input_file.read_text("utf-8") and not force:
+    if "secmail" not in input_file_data and not force:
         raise click.FileError(
             str(input_file.absolute()), "The input file provided seems to be invalid"
         )
 
-    soup = BeautifulSoup(input_file.read_text("utf-8"), "lxml")
+    soup = BeautifulSoup(input_file_data, "lxml")
     value_map = {
         node.attrs.get("name"): node.attrs.get("value")
         for node in soup.find_all("input")
@@ -169,7 +171,7 @@ def cli(
     if extract:
         msg = email.message_from_bytes(output.read_bytes(), policy=policy.default)
         for attachment in msg.iter_attachments():
-            if not attachment.get_content_disposition() == 'attachment':
+            if not attachment.get_content_disposition() == "attachment":
                 # Skip over inline attachments
                 continue
             try:

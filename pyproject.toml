@@ -9,13 +9,27 @@ classifiers = ["Environment :: Console"]
 
 [tool.poetry.dependencies]
 python = "^3.10"
-requests = "^2.30"
-click = "^8.1.3"
+requests = "^2.31"
+click = "^8.1.6"
 beautifulsoup4 = "^4.12.2"
-lxml = "^4.9.2"
+lxml = "^4.9.3"
 
 [tool.poetry.scripts]
 seppmail-converter = 'seppmail_converter.main:entry'
+
+[tool.poetry.group.dev.dependencies]
+python-semantic-release = "^8.0.4"
+
+[tool.semantic_release]
+version.variable = [
+    "seppmail_converter/__init__.py:__version__",
+    "pyproject.toml:version",
+]
+branch = "master"
+upload_to_pypi = true
+upload_to_release = true
+build_command = "poetry build"
+
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
