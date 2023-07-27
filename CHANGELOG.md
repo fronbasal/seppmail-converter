@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.1](https://github.com/mhsp/seppmail-converter/compare/v1.0.0...v1.0.1) (2023-07-27)
+
+
+### Bug Fixes
+
+* remove unused LinkCrawler ([70e8c17](https://github.com/mhsp/seppmail-converter/commit/70e8c1731275f27bacb13985a60b4ffb9cf3b17b))
+
 ## 1.0.0 (2023-07-27)
 
 
