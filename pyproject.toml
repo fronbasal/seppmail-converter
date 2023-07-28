@@ -2,7 +2,7 @@
 name = "seppmail-converter"
 version = "1.0.2"
 description = "Decode SEPPMail emails into EML files"
-license = "MIT"
+license = "AGPL-3.0-or-later"
 authors = ["Daniel Malik <daniel.malik@mhsp.solutions>"]
 readme = "README.md"
 classifiers = ["Environment :: Console"]
