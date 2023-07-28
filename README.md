@@ -1,4 +1,7 @@
 # SEPPMail Converter
+![PyPI](https://img.shields.io/pypi/v/seppmail-converter)
+![GitHub Workflow Status (with event)](https://img.shields.io/github/actions/workflow/status/mhsp/seppmail-converter/release.yml)
+![GitHub](https://img.shields.io/github/license/mhsp/seppmail-converter)
 
 This python tool allows you to convert [SEPPMail](https://www.seppmail.com/) encrypted email files (`html`) to `.eml` files.
 
