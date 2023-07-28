@@ -6,6 +6,7 @@ license = "AGPL-3.0-or-later"
 authors = ["Daniel Malik <daniel.malik@mhsp.solutions>"]
 readme = "README.md"
 classifiers = ["Environment :: Console"]
+repository = "https://github.com/mhsp/seppmail-converter"
 
 [tool.poetry.dependencies]
 python = "^3.10"
