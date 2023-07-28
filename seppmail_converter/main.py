@@ -158,6 +158,7 @@ def cli(
             output.unlink()
 
     output.write_bytes(req.content)
+    output.touch()
 
     if delete:
         input_file.unlink()
@@ -184,6 +185,8 @@ def cli(
                 pathlib.Path.joinpath(output.parent, attachment_filename)
             )
             attachment_output.write_bytes(attachment.get_payload(decode=True))
+            attachment_output.touch()
+
             if not quiet:
                 click.echo(
                     f"Extracted {click.format_filename(attachment_output.absolute())}"
