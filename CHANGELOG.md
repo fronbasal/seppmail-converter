@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.2](https://github.com/mhsp/seppmail-converter/compare/v1.0.1...v1.0.2) (2023-07-28)
+
+
+### Bug Fixes
+
+* **ci:** enable pip caching [skip ci] ([329af36](https://github.com/mhsp/seppmail-converter/commit/329af362b1a18f31da786123f457f72b57b3a4c1))
+* touch files after creating them ([be6474a](https://github.com/mhsp/seppmail-converter/commit/be6474a479cb956c493ff23f7e0f93b839307e11))
+
 ## [1.0.1](https://github.com/mhsp/seppmail-converter/compare/v1.0.0...v1.0.1) (2023-07-27)
 
 
