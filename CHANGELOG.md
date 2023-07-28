@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.3](https://github.com/mhsp/seppmail-converter/compare/v1.0.2...v1.0.3) (2023-07-28)
+
+
+### Bug Fixes
+
+* **docs:** add repository url, license type ([5730799](https://github.com/mhsp/seppmail-converter/commit/573079903509f7a59019f6328fe915729534f8c0))
+
 ## [1.0.2](https://github.com/mhsp/seppmail-converter/compare/v1.0.1...v1.0.2) (2023-07-28)
 
 
