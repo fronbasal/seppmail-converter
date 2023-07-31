@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.2.0](https://github.com/mhsp/seppmail-converter/compare/v1.1.0...v1.2.0) (2023-07-31)
+
+
+### Features
+
+* **ci:** add black linting ([2cf3219](https://github.com/mhsp/seppmail-converter/commit/2cf3219f3ea05d4ec66fbfeda4233c76c571a19c))
+
+
+### Bug Fixes
+
+* **ci:** use with ([2cea05c](https://github.com/mhsp/seppmail-converter/commit/2cea05ce39b13abbe0cd05ae071c8aeb33d310bb))
+
 ## [1.1.0](https://github.com/mhsp/seppmail-converter/compare/v1.0.3...v1.1.0) (2023-07-31)
 
 
