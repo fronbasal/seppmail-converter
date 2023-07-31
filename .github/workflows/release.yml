@@ -21,6 +21,8 @@ jobs:
           cache: "pip"
       - name: Install poetry
         run: pip install poetry
+      - uses: psf/black@stable
+        src: "./seppmail_converter"
       - uses: bjoluc/semantic-release-config-poetry@v2
         with:
           pypi_token: ${{ secrets.PYPI_TOKEN }}

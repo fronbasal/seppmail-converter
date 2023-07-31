@@ -20,6 +20,7 @@ seppmail-converter = 'seppmail_converter.main:entry'
 
 [tool.poetry.group.dev.dependencies]
 python-semantic-release = "^8.0.4"
+black = "^23.7.0"
 
 [tool.semantic_release]
 version.variable = [
@@ -30,7 +31,6 @@ branch = "master"
 upload_to_pypi = true
 upload_to_release = true
 build_command = "poetry build"
-
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
