@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.1.0](https://github.com/mhsp/seppmail-converter/compare/v1.0.3...v1.1.0) (2023-07-31)
+
+
+### Features
+
+* **ci:** add dependabot.yml ([c6d300a](https://github.com/mhsp/seppmail-converter/commit/c6d300a7a588ca62e7b3c34f0b9bbe3cbf113115))
+
 ## [1.0.3](https://github.com/mhsp/seppmail-converter/compare/v1.0.2...v1.0.3) (2023-07-28)
 
 
