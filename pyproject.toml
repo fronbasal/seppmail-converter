@@ -20,7 +20,7 @@ seppmail-converter = 'seppmail_converter.main:entry'
 
 [tool.poetry.group.dev.dependencies]
 python-semantic-release = "^8.0.4"
-black = "^23.7.0"
+black = ">=23.7,<25.0"
 
 [tool.semantic_release]
 version.variable = [
