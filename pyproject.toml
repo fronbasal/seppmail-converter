@@ -19,7 +19,7 @@ lxml = "^4.9.3"
 seppmail-converter = 'seppmail_converter.main:entry'
 
 [tool.poetry.group.dev.dependencies]
-python-semantic-release = "^8.0.4"
+python-semantic-release = ">=8.0.4,<10.0.0"
 black = "^23.7.0"
 
 [tool.semantic_release]
